@@ -1,0 +1,53 @@
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: linear-gradient(135deg, #000000, #004d26);
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+}
+
+.logo {
+  width: 180px;
+  margin-bottom: 20px;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #00ff88;
+  margin-bottom: 10px;
+}
+
+p {
+  color: #ccc;
+  font-size: 1.1rem;
+}
+
+@keyframes glow {
+  from { filter: drop-shadow(0 0 5px #00ff88); }
+  to { filter: drop-shadow(0 0 20px #00ff88); }
+}
+
+/* Botón de WhatsApp */
+.whatsapp {
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
+  background-color: #25d366;
+  color: white;
+  font-size: 30px;
+  padding: 12px 17px;
+  border-radius: 50%;
+  text-decoration: none;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  transition: transform 0.2s;
+}
+
+.whatsapp:hover {
+  transform: scale(1.1);
+}
