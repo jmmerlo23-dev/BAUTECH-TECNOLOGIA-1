@@ -1,53 +1,528 @@
+/* ====== Reset suave ====== */
+* {
+  box-sizing: border-box;
+}
+html,
 body {
+  height: 100%;
   margin: 0;
-  height: 100vh;
+}
+
+/* ====== Fondo y tipografía ====== */
+body {
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
-  background: linear-gradient(135deg, #000000, #004d26);
-  color: #fff;
-  font-family: 'Poppins', sans-serif;
+  align-items: center;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue",
+    Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  color: #e7f5ec;
+  background: radial-gradient(
+      1200px 700px at 20% -10%,
+      #065f46 0%,
+      rgba(6, 95, 70, 0) 60%
+    ),
+    radial-gradient(
+      1200px 700px at 120% 110%,
+      #0b3b2d 0%,
+      rgba(11, 59, 45, 0) 60%
+    ),
+    linear-gradient(135deg, #000000 0%, #021a12 40%, #072a20 100%);
+}
+
+/* ====== Encabezado ====== */
+.container {
   text-align: center;
+  margin: 36px 16px 8px;
 }
 
 .logo {
-  width: 180px;
-  margin-bottom: 20px;
-  animation: glow 2s ease-in-out infinite alternate;
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  border-radius: 20px;
+  background: #0b1f19;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35),
+    inset 0 0 12px rgba(255, 255, 255, 0.04);
 }
 
 h1 {
-  font-size: 2.5rem;
-  color: #00ff88;
-  margin-bottom: 10px;
+  margin: 18px 0 8px;
+  font-size: clamp(28px, 4vw, 42px);
+  color: #59e391;
+  text-shadow: 0 2px 18px rgba(46, 204, 113, 0.25);
+}
+.container p {
+  margin: 0;
+  opacity: 0.9;
 }
 
-p {
-  color: #ccc;
-  font-size: 1.1rem;
+/* ====== Estado de conexión ====== */
+#status {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  margin: 12px auto 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  color: #e7f5ec;
+  font-weight: 600;
+}
+#status::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #22c55e; /* verde OK */
+  box-shadow: 0 0 12px #22c55e;
+}
+/* si quisieras un estado de error, podés agregar la clase .error via JS */
+#status.error {
+  background: rgba(255, 0, 0, 0.08);
+}
+#status.error::before {
+  background: #ef4444;
+  box-shadow: 0 0 12px #ef4444;
 }
 
-@keyframes glow {
-  from { filter: drop-shadow(0 0 5px #00ff88); }
-  to { filter: drop-shadow(0 0 20px #00ff88); }
+/* ====== Tarjetas (formularios / bloques) ====== */
+.card {
+  width: min(880px, 92vw);
+  margin: 16px auto;
+  padding: 22px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
-/* Botón de WhatsApp */
+.card h2 {
+  margin: 0 0 14px;
+  font-size: clamp(20px, 2.6vw, 26px);
+  color: #8ef1b7;
+  letter-spacing: 0.2px;
+}
+
+/* ====== Dashboard de Gestión de Clientes ====== */
+.dash-grid {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.dash-btn {
+  flex: 1 1 200px;
+  max-width: 240px;
+  padding: 16px 20px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #0a1d16;
+  background: linear-gradient(180deg, #5ef2ac, #35d39a);
+  border: none;
+  border-radius: 14px;
+  box-shadow: 0 10px 24px rgba(53, 211, 154, 0.35);
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.dash-btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+}
+
+.dash-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 18px rgba(53, 211, 154, 0.4);
+}
+
+/* Contenedor donde se mostrarán las vistas */
+.vista {
+  margin-top: 24px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+}
+
+/* ====== Formularios ====== */
+form.card {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr 1fr;
+}
+form.card label {
+  grid-column: span 1;
+  font-weight: 600;
+  opacity: 0.9;
+}
+form.card input,
+form.card textarea,
+form.card select {
+  grid-column: span 1;
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(8, 28, 22, 0.55);
+  color: #e7f5ec;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.06s;
+}
+form.card textarea {
+  grid-column: span 2;
+  resize: vertical;
+  min-height: 80px;
+}
+
+form.card input::placeholder,
+form.card textarea::placeholder {
+  color: #9fb6aa;
+}
+
+form.card input:focus,
+form.card textarea:focus,
+form.card select:focus {
+  border-color: #34d399;
+  box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.25),
+    0 10px 24px rgba(0, 0, 0, 0.25);
+}
+
+form.card button[type="submit"] {
+  grid-column: 2 / -1;
+  justify-self: end;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  color: #0a1d16;
+  background: linear-gradient(180deg, #5ef2ac, #35d39a);
+  box-shadow: 0 10px 24px rgba(53, 211, 154, 0.35);
+  cursor: pointer;
+  transition: transform 0.06s ease, filter 0.2s ease, box-shadow 0.2s ease;
+}
+form.card button[type="submit"]:hover {
+  filter: brightness(1.05);
+}
+form.card button[type="submit"]:active {
+  transform: translateY(1px);
+}
+form.card button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ====== Lista de últimos clientes ====== */
+#lista_clientes {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+  display: grid;
+  gap: 10px;
+}
+#lista_clientes li {
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(10, 30, 24, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ====== Formulario de órdenes ====== */
+form.form {
+  width: min(880px, 92vw);
+  margin: 8px auto 4px;
+  padding: 22px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, 1fr);
+}
+form.form label {
+  font-weight: 600;
+  opacity: 0.9;
+}
+form.form input,
+form.form select,
+form.form textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(8, 28, 22, 0.55);
+  color: #e7f5ec;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.06s;
+}
+form.form textarea {
+  grid-column: span 2;
+  min-height: 90px;
+}
+
+form.form button[type="submit"] {
+  grid-column: 2 / -1;
+  justify-self: end;
+  padding: 12px 18px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 700;
+  background: linear-gradient(180deg, #5ef2ac, #35d39a);
+  color: #0a1d16;
+  box-shadow: 0 10px 24px rgba(53, 211, 154, 0.35);
+  cursor: pointer;
+}
+
+/* ====== Tabla ====== */
+.tabla {
+  width: min(880px, 92vw);
+  margin: 12px auto 28px;
+  border-collapse: collapse;
+  overflow: hidden;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+.tabla thead th {
+  text-align: left;
+  padding: 12px 14px;
+  background: rgba(46, 204, 113, 0.12);
+  color: #aaf5c9;
+  font-weight: 700;
+}
+.tabla tbody td {
+  padding: 12px 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+.tabla tbody tr:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* ====== Botón WhatsApp flotante ====== */
 .whatsapp {
   position: fixed;
-  right: 25px;
-  bottom: 25px;
-  background-color: #25d366;
-  color: white;
-  font-size: 30px;
-  padding: 12px 17px;
-  border-radius: 50%;
+  right: 22px;
+  bottom: 22px;
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
   text-decoration: none;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
-  transition: transform 0.2s;
+  font-size: 26px;
+  background: #25d366;
+  color: #07341f;
+  border-radius: 50%;
+  box-shadow: 0 14px 30px rgba(37, 211, 102, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  transition: transform 0.08s ease, filter 0.2s ease, box-shadow 0.2s ease;
+}
+.whatsapp:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
 }
 
-.whatsapp:hover {
-  transform: scale(1.1);
+/* ====== Grid específico del formulario de clientes (3 campos en línea) ====== */
+#form_cliente {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) 140px; /* 3 columnas de campo + 1 para el botón */
+  grid-auto-rows: auto;
+  gap: 12px 16px;
+  align-items: center;
+}
+
+/* Título va a lo ancho */
+#form_cliente h2 {
+  grid-column: 1 / -1;
+  margin-bottom: 6px;
+}
+
+/* Etiquetas arriba de cada campo */
+#form_cliente label:nth-of-type(1) {
+  grid-column: 1;
+  grid-row: 2;
+  justify-self: start;
+}
+#form_cliente label:nth-of-type(2) {
+  grid-column: 2;
+  grid-row: 2;
+  justify-self: start;
+}
+#form_cliente label:nth-of-type(3) {
+  grid-column: 3;
+  grid-row: 2;
+  justify-self: start;
+}
+
+/* Inputs en la fila siguiente, cada uno en su columna */
+#form_cliente #cli_nombre {
+  grid-column: 1;
+  grid-row: 3;
+}
+#form_cliente #cli_tel {
+  grid-column: 2;
+  grid-row: 3;
+}
+#form_cliente #cli_email {
+  grid-column: 3;
+  grid-row: 3;
+}
+
+/* Botón alineado a la derecha, a la altura de los inputs */
+#form_cliente button[type="submit"] {
+  grid-column: 4; /* la 4ta columna que reservamos para el botón */
+  grid-row: 3;
+  justify-self: end;
+}
+
+/* ====== Responsivo ====== */
+@media (max-width: 700px) {
+  form.card,
+  form.form {
+    grid-template-columns: 1fr;
+  }
+  form.card button[type="submit"],
+  form.form button[type="submit"] {
+    grid-column: 1 / -1;
+    justify-self: stretch;
+  }
+}
+
+/* NUEVO CODIGO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+
+/* === Acordeón / vistas internas === */
+.vista {
+  margin-top: 12px;
+}
+.acordeon {
+  overflow: hidden;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.05);
+}
+.acordeon__body {
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.28s ease, opacity 0.2s ease;
+  padding: 0 16px;
+}
+.acordeon.is-open .acordeon__body {
+  max-height: 900px; /* suficiente para contenido */
+  opacity: 1;
+  padding: 16px;
+}
+
+/* Grid simple del formulario de cliente */
+.cli-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, 1fr);
+}
+.cli-grid .full {
+  grid-column: 1 / -1;
+}
+
+/* Mensajes de validación */
+.input-msg {
+  font-size: 12px;
+  color: #fca5a5;
+  margin-top: 4px;
+  min-height: 14px;
+  opacity: 0.9;
+}
+
+/* Zona de resultados (listas/tablas) */
+.result-list {
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+}
+.result-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(10, 30, 24, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.result-item button {
+  margin-left: 10px;
+}
+
+/* === Dashboard de gestión de clientes (2 filas) === */
+.dash-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.dash-row {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  width: 100%;
+}
+
+.dash-btn {
+  flex: 1;
+  max-width: 220px;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #5ef2ac, #35d39a);
+  color: #0a1d16;
+  box-shadow: 0 10px 24px rgba(53, 211, 154, 0.35);
+  cursor: pointer;
+  transition: transform 0.08s ease, filter 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dash-btn:hover {
+  filter: brightness(1.08);
+}
+
+.dash-btn:active {
+  transform: translateY(1px);
+}
+
+/* === Estado activo de los botones del dashboard === */
+.dash-btn.activo {
+  filter: brightness(1.25);
+  box-shadow: 0 0 15px rgba(94, 242, 172, 0.7);
+  transform: scale(1.03);
+  transition: all 0.15s ease-in-out;
+}
+
+.panel {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.panel.abriendo {
+  opacity: 1;
+  max-height: 500px;
+}
+
+.panel.cerrando {
+  opacity: 0;
+  max-height: 0;
 }

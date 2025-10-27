@@ -1,20 +1,105 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bautech Tecnología</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="container">
-   <img src="logo.jpg" alt="Bautech Logo" class="logo" />
-    <h1>Bautech Tecnología</h1>
-    <p>Reparación, desarrollo y tecnología al servicio de la innovación.</p>
-  </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bautech Tecnología</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <img src="logo.jpg" alt="Bautech Logo" class="logo" />
+      <h1>Bautech Tecnología</h1>
+      <p>Reparación, desarrollo y tecnología al servicio de la innovación.</p>
+    </div>
 
-  <a href="https://wa.me/5493800000000" target="_blank" class="whatsapp">
-    💬
-  </a>
-</body>
+    <!-- Estado de conexión -->
+    <p id="status" style="text-align: center; margin-top: 10px">Conectando…</p>
+
+    <!-- Dashboard de Gestión de Clientes -->
+    <div class="card" id="clientes_panel">
+      <h2>Gestión de clientes</h2>
+
+      <div class="dash-grid">
+        <!-- Fila superior -->
+        <div class="dash-row">
+          <button class="dash-btn" id="btn_cli_agregar">➕ Agregar</button>
+          <button class="dash-btn" id="btn_cli_consultar">🔍 Consultar</button>
+        </div>
+
+        <!-- Fila inferior -->
+        <div class="dash-row">
+          <button class="dash-btn" id="btn_cli_modificar">✏️ Modificar</button>
+          <button class="dash-btn" id="btn_cli_eliminar">🗑️ Eliminar</button>
+        </div>
+      </div>
+
+      <!-- Aquí se renderizan las “vistas” internas -->
+      <div id="vista_clientes" class="vista"></div>
+    </div>
+
+    <!-- Listado: últimos clientes -->
+    <div class="card">
+      <h2>Últimos clientes</h2>
+      <ul id="lista_clientes"></ul>
+    </div>
+
+    <hr />
+
+    <!-- Nueva orden -->
+    <h2>Nueva orden</h2>
+
+    <form id="form_orden" class="form">
+      <label>Cliente*</label>
+      <select id="ord_cliente" required>
+        <option value="">— Selecciona un cliente —</option>
+      </select>
+
+      <label>Equipo*</label>
+      <input id="ord_equipo" type="text" required />
+
+      <label>Falla*</label>
+      <textarea id="ord_falla" rows="2" required></textarea>
+
+      <label>Estado</label>
+      <select id="ord_estado">
+        <option value="Ingresado">Ingresado</option>
+        <option value="En reparación">En reparación</option>
+        <option value="Listo">Listo</option>
+        <option value="Entregado">Entregado</option>
+      </select>
+
+      <label>Costo estimado</label>
+      <input id="ord_costo" type="number" step="0.01" />
+
+      <label>Anticipo</label>
+      <input id="ord_anticipo" type="number" step="0.01" />
+
+      <label>Fecha de entrega</label>
+      <input id="ord_fecha" type="date" />
+
+      <button type="submit">Guardar orden</button>
+    </form>
+
+    <h2>Órdenes recientes</h2>
+    <table class="tabla" id="tabla_ordenes">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Cliente</th>
+          <th>Equipo</th>
+          <th>Estado</th>
+          <th>Costo</th>
+        </tr>
+      </thead>
+      <tbody id="tbody_ordenes"></tbody>
+    </table>
+
+    <a href="https://wa.me/5493800000000" target="_blank" class="whatsapp"
+      >💬</a
+    >
+
+    <script type="module" src="./app.js"></script>
+  </body>
 </html>
+**
